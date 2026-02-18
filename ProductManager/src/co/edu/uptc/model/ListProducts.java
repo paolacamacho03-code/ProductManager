@@ -13,29 +13,7 @@ import java.util.ListIterator;
  *
  * @author Paola
  */
-public class ProductsManager<T> implements List<T> {
-
-    private Node<T> firstProduct = null;
-
-    private Node<T> createNode(T value) {
-
-        return new Node<>(value);
-
-    }
-
-    private Node<T> returnLastNode() {
-
-        Node<T> last = firstProduct;
-
-        while (last.nextNode != null) {
-
-            last = last.nextNode;
-
-        }
-
-        return last;
-
-    }
+public class ListProducts <T> implements List<T>{
 
     @Override
     public int size() {
@@ -44,6 +22,7 @@ public class ProductsManager<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
+        
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -58,91 +37,22 @@ public class ProductsManager<T> implements List<T> {
     }
 
     @Override
+    public Object[] toArray() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public <T> T[] toArray(T[] a) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean add (T product) {
-        Node<T> aux = createNode(product);
-        if (firstProduct == null) {
-            firstProduct = aux;
-        } else {
-            Node<T> last = returnLastNode();
-            last.nextNode = aux;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean remove(Object nameProduct) {
-        if (firstProduct == null) {
-            return false;
-        }
-
-        String delete = (String) nameProduct;
-
-        Node<T> before = null;
-        Node<T> act = firstProduct;
-
-        boolean deleted = false;
-
-        while (act != null) {
-
-            Product p = (Product) act.getValue();
-
-            if (p.getDescription().toLowerCase().contains(delete.toLowerCase())) {
-
-                if (before == null) {
-                    firstProduct = act.nextNode;
-                    act = firstProduct;
-                } else {
-                    before.nextNode = act.nextNode;
-                    act = act.nextNode;
-                }
-                deleted = true;
-
-            } else {
-
-                before = act;
-                act = act.nextNode;
-            }
-        }
-        return deleted;
-    }
-
-    @Override
-    public void clear() {
+    public boolean add(T e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public T get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public T set(int index, T element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public T remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int lastIndexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object[] toArray() {
+    public boolean remove(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -172,12 +82,37 @@ public class ProductsManager<T> implements List<T> {
     }
 
     @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public T get(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public T set(int index, T element) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public void add(int index, T element) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
+    public T remove(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public int indexOf(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -190,4 +125,15 @@ public class ProductsManager<T> implements List<T> {
     public ListIterator<T> listIterator(int index) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addLast(T e) {
+        List.super.addLast(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
 }
