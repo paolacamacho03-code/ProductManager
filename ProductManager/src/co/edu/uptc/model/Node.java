@@ -8,23 +8,16 @@ package co.edu.uptc.model;
  *
  * @author Paola
  */
-public class Node {
+public class Node <T> {
 
-    public Node nextNode;
-    private Product value;
+    public Node <T> nextNode;
+    private T value;
 
-    public Node(Product value) {
+    public Node(T value) {
         this.value = value;
     }
 
-    boolean isEmpty() {
-        if (value == null) {
-            return true;
-        }
-        return false;
-    }
-
-    public Product getValue() {
+    public T getValue() {
         return value;
     }
 
