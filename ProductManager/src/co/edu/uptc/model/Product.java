@@ -22,6 +22,14 @@ public class Product {
 
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Product: " + "description=" + description + ", price=" + price + ", unit=" + unit;
