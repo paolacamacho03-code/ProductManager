@@ -22,7 +22,7 @@ public class ProductsManager {
             firstProduct = aux;
         } else {
             Node last = returnLastNode();
-            aux.nextNode = aux;
+            last.nextNode = aux;
         }
     }
     
