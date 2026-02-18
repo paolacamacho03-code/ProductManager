@@ -14,4 +14,18 @@ public class Product {
     double price;
     String unit;
     
+    public Product(String description, double price, String unit) {
+
+        this.description = description;
+        this.price = price;
+        this.unit = unit;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Product: " + "description=" + description + ", price=" + price + ", unit=" + unit;
+    }
+    
+    
 }

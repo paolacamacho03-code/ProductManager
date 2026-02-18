@@ -9,18 +9,18 @@ package co.edu.uptc.model;
  * @author Paola
  */
 public class Node {
-    
+
     public Node nextNode;
     private Product value;
 
     public Node(Product value) {
         this.value = value;
     }
-    
-    boolean isEmpty(){
-        if (value == null){
+
+    boolean isEmpty() {
+        if (value == null) {
             return true;
         }
         return false;
-    } 
+    }
 }
