@@ -23,4 +23,9 @@ public class Node {
         }
         return false;
     }
+
+    public Product getValue() {
+        return value;
+    }
+
 }
