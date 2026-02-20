@@ -17,4 +17,8 @@ public interface ViewInterface {
     void showError(String message);
 
     void start();
+
+    public int readInt();
+
+    public void showMenu();
 }
