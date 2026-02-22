@@ -6,7 +6,8 @@ package co.edu.uptc.model;
 
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public class Product {
     

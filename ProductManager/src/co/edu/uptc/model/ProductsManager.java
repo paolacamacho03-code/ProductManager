@@ -4,15 +4,13 @@
  */
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
+
 
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public class ProductsManager<T> implements List<T> {
 
@@ -101,9 +99,21 @@ public class ProductsManager<T> implements List<T> {
     }
 
     public void organizeListProducts(List<T> listProducts) {
-        //listProducts.sort(c);
-    }
 
+        Collections.sort(listProducts, new Comparator<T>() {
+
+            @Override
+            public int compare(T o1, T o2) {
+
+                Product p1 = (Product) o1;
+                Product p2 = (Product) o2;
+
+                return p1.getDescription()
+                        .compareToIgnoreCase(p2.getDescription());
+            }
+        });
+    }
+//itereitor
     @Override
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
