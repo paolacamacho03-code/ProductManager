@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public class View implements ViewInterface {
 

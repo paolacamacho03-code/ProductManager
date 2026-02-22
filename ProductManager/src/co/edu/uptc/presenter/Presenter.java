@@ -13,7 +13,8 @@ import java.util.List;
 
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public class Presenter implements PresenterInterface {
 
@@ -57,7 +58,7 @@ public class Presenter implements PresenterInterface {
                     break;
 
                 case 3:
-
+                    showOrderedProduct();
                     break;
 
                 case 4:
@@ -101,5 +102,14 @@ public class Presenter implements PresenterInterface {
 //        } else {
 //            view.showMessage("No se encontraron productos con ese nombre");
 //        }
+    }
+
+
+    private void showOrderedProduct(){
+        List<Product> products = manager.showListProducts();
+        manager.organizeListProducts(products);
+        for (Product p : products) {
+            // view.showProduct(p);
+        }
     }
 }

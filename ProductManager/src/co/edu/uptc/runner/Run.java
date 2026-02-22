@@ -13,7 +13,8 @@ import co.edu.uptc.view.View;
 
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public class Run {
     

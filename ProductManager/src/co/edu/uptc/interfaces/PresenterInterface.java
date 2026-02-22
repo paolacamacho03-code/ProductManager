@@ -4,9 +4,11 @@
  */
 package co.edu.uptc.interfaces;
 
+
 /**
  *
- * @author Paola
+ * @author Paola Andrea Camacho
+ * @author Hellen Valeria Melo
  */
 public interface PresenterInterface {
 
