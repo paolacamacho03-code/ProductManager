@@ -7,8 +7,9 @@ package co.edu.uptc.presenter;
 import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.model.Product;
+import co.edu.uptc.pojo.Product;
 import co.edu.uptc.model.ProductsManager;
+
 import java.util.List;
 
 /**
@@ -19,10 +20,9 @@ import java.util.List;
 public class Presenter implements PresenterInterface {
 
     private ViewInterface view;
-    private ModelInterface model;
-    private ProductsManager<Product> manager;
+    private ModelInterface<Product> model;
 
-    public void mainPresenter(ViewInterface view, ModelInterface model) {
+    public void Presenter(ViewInterface view, ModelInterface<Product> model) {
         this.view = view;
         this.model = model;
     }
@@ -42,31 +42,20 @@ public class Presenter implements PresenterInterface {
     }
 
     private void startMenu() {
-        int option = view.readInt();
-
-        while (option != 5) {
-
+        int option;
+        do {
             view.showMenu();
-
+            option = view.readInt();
             switch (option) {
-                case 1:
-                    addProduct();
-                    break;
-
-                case 2:
-                    showListProducts();
-                    break;
-
-                case 3:
-                    showOrderedProduct();
-                    break;
-
-                case 4:
-                    deleteProduct();
-                    break;
+                case 1 -> addProduct();
+                case 2 -> showListProducts();
+                //   case 3 -> showOrderedList();
+                // case 4 -> deleteProduct();
+                //case 5 -> view.showMessage("Cerrando programa");
+                //default -> view.showMessage("Opcion invalida");
 
             }
-        }
+        } while (option != 5);
     }
 
     private void addProduct() {
@@ -83,33 +72,12 @@ public class Presenter implements PresenterInterface {
     }
 
     private void showListProducts() {
-        List<Product> products = manager.showListProducts();
+        // List<Product> products = manager.showListProducts();
 
-        if (products.isEmpty()) {
-            //view.showMessage("No hay productos registrados");
-            return;
-        } 
-        for(Product p : products){
-            //view.showMessage(p); o showList() según esté en el View
-        }
+        // if (products.isEmpty()) {
+        //view.showMessage("No hay productos registrados");
+        return;
     }
-
-    private void deleteProduct() {
-        //String nameProduct = view.readInfo();
-        //boolean deleted = manager.remove(nameProduct);
-//        if (deleted) {
-//            view.showMessage("Producto(s) eliminado(s) correctamente");
-//        } else {
-//            view.showMessage("No se encontraron productos con ese nombre");
-//        }
-    }
-
-
-    private void showOrderedProduct(){
-        List<Product> products = manager.showListProducts();
-        manager.organizeListProducts(products);
-        for (Product p : products) {
-            // view.showProduct(p);
-        }
-    }
+    //  for(Product p : products){
+    //view.showMessage(p); o showList() según esté en el View
 }
