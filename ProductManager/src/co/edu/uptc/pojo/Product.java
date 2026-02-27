@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package co.edu.uptc.model;
+package co.edu.uptc.pojo;
 
 /**
  *
@@ -11,10 +11,26 @@ package co.edu.uptc.model;
  */
 public class Product {
     
-    String description;
-    double price;
-    String unit;
-    
+    private String description;
+    private double price;
+    private String unit;
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public Product(String description, double price, String unit) {
 
         this.description = description;

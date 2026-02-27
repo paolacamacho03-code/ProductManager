@@ -5,11 +5,23 @@
 package co.edu.uptc.interfaces;
 
 
+import co.edu.uptc.pojo.Product;
+
+import java.util.List;
+
 /**
  *
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public interface ModelInterface {
-    
+public interface ModelInterface<T extends Product> {
+    boolean add(T product);
+
+    boolean remove(Object nameProduct);
+
+    List<T> showListProducts();
+
+    List<T> organizeListProducts();
+
+
 }

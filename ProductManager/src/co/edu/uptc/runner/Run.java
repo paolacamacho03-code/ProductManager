@@ -34,6 +34,7 @@ public class Run {
     
     public void start(){
         makeMVP();
+        view.start();
     }
     
     public static void main(String[] args) {

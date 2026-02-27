@@ -4,6 +4,9 @@
  */
 package co.edu.uptc.model;
 
+import co.edu.uptc.pojo.Node;
+import co.edu.uptc.pojo.Product;
+
 import java.util.*;
 
 
@@ -12,9 +15,9 @@ import java.util.*;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public class ProductsManager<T> implements List<T> {
+public class ProductsManager<T > implements List<T> {
 
-    private Node<T> firstProduct = null;
+    private Node<T> firstNode = null;
 
     private Node<T> createNode(T value) {
 
@@ -22,9 +25,10 @@ public class ProductsManager<T> implements List<T> {
 
     }
 
+    //verificar que no se rompa si recibe firstNode==null
     private Node<T> returnLastNode() {
 
-        Node<T> last = firstProduct;
+        Node<T> last = firstNode;
 
         while (last.nextNode != null) {
 
@@ -39,8 +43,8 @@ public class ProductsManager<T> implements List<T> {
     @Override
     public boolean add(T product) {
         Node<T> aux = createNode(product);
-        if (firstProduct == null) {
-            firstProduct = aux;
+        if (firstNode == null) {
+            firstNode = aux;
         } else {
             Node<T> last = returnLastNode();
             last.nextNode = aux;
@@ -50,45 +54,53 @@ public class ProductsManager<T> implements List<T> {
 
     @Override
     public boolean remove(Object nameProduct) {
-        if (firstProduct == null) {
+        if (!(nameProduct instanceof String)) {
             return false;
         }
+        String d = (String) nameProduct;
+        return advanceNodes(d);
 
-        String delete = (String) nameProduct;
+    }
 
+    public boolean advanceNodes(String d) {
         Node<T> before = null;
-        Node<T> act = firstProduct;
-
+        Node<T> current = firstNode;
         boolean deleted = false;
 
-        while (act != null) {
-
-            Product p = (Product) act.getValue();
-
-            if (p.getDescription().toLowerCase().contains(delete.toLowerCase())) {
-
-                if (before == null) {
-                    firstProduct = act.nextNode;
-                    act = firstProduct;
-                } else {
-                    before.nextNode = act.nextNode;
-                    act = act.nextNode;
-                }
+        while (current != null) {
+            if (compareDescription(current.getValue(), d)) {
+                current = removeByName(before, current);
                 deleted = true;
-
             } else {
-
-                before = act;
-                act = act.nextNode;
+                before = current;
+                current = current.nextNode;
             }
         }
         return deleted;
     }
 
+    public boolean compareDescription(T product, String delete) {
+        return product.getDescription().toLowerCase().
+                contains(delete.toLowerCase());
+    }
+
+    public Node<T> removeByName(Node<T> before, Node<T> current) {
+        if (before == null) {
+            firstNode = current.nextNode;
+            return firstNode;
+
+        } else {
+            before.nextNode = current.nextNode;
+            return before.nextNode;
+        }
+
+    }
+
+
     public List<T> showListProducts() {
 
         List<T> listProducts = new ArrayList<>();
-        Node<T> current = firstProduct;
+        Node<T> current = firstNode;
 
         while (current != null) {
             listProducts.add(current.getValue());
@@ -98,22 +110,19 @@ public class ProductsManager<T> implements List<T> {
         return listProducts;
     }
 
-    public void organizeListProducts(List<T> listProducts) {
+    public List<T> organizeListProducts() {
 
-        Collections.sort(listProducts, new Comparator<T>() {
-
+        List<T> listProducts = showListProducts();
+        listProducts.sort(new Comparator<T>() {
             @Override
             public int compare(T o1, T o2) {
-
-                Product p1 = (Product) o1;
-                Product p2 = (Product) o2;
-
-                return p1.getDescription()
-                        .compareToIgnoreCase(p2.getDescription());
+                return o1.getDescription().compareToIgnoreCase(o2.getDescription());
             }
         });
+        return listProducts;
     }
-//itereitor
+
+    //itereitor
     @Override
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -121,8 +130,11 @@ public class ProductsManager<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return firstNode == null;
     }
+
+
+    //verificar
 
     @Override
     public boolean contains(Object o) {
