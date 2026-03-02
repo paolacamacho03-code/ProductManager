@@ -10,7 +10,7 @@ package co.edu.uptc.pojo;
  * @author Hellen Valeria Melo
  */
 public class Product {
-    
+
     private String description;
     private double price;
     private String unit;
@@ -45,6 +45,15 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean equals(Object object) {
+        if (object == this) return true;
+        if (!(object instanceof Product) || object == null) return false;
+        Product o = (Product) object;
+        return this.description.equalsIgnoreCase(o.description);
+
+
     }
 
     @Override

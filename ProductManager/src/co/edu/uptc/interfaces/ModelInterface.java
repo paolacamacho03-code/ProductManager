@@ -14,7 +14,7 @@ import java.util.List;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public interface ModelInterface<T extends Product> {
+public interface ModelInterface<T> {
     boolean add(T product);
 
     boolean remove(Object nameProduct);

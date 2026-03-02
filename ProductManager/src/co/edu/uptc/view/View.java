@@ -6,6 +6,8 @@ package co.edu.uptc.view;
 
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -39,8 +41,14 @@ public class View implements ViewInterface {
 
     @Override
     public void start() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        MenuConsole menu = new MenuConsole();
+        String title = "MENÚ PRINCIPAL";
+        List<String> opts = List.of("1. Saludaaaaaaaaaaaaaaaaaaaaaaar ahora", "2. Información Técnica", "3. Salir");
+
+        for(int opt = 0; opt != 3; opt = menu.adminMenu(opts, title)) {
+        }
+
+       }
 
     @Override
     public int readInt() {
@@ -49,7 +57,12 @@ public class View implements ViewInterface {
 
     @Override
     public void showMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        MenuConsole menu = new MenuConsole();
+        String title = "MENÚ PRINCIPAL";
+        List<String> opts = List.of("1. Saludar ahora", "2. Información Técnica", "3. Salir");
+
+        for (int opt = 0; opt != 3; opt = menu.adminMenu(opts, title)) {
+        }
     }
 
 }

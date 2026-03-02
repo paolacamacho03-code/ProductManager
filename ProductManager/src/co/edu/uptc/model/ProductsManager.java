@@ -15,7 +15,7 @@ import java.util.*;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public class ProductsManager<T > implements List<T> {
+public class ProductsManager<T> implements List<T> {
 
     private Node<T> firstNode = null;
 
@@ -27,6 +27,7 @@ public class ProductsManager<T > implements List<T> {
 
     //verificar que no se rompa si recibe firstNode==null
     private Node<T> returnLastNode() {
+
 
         Node<T> last = firstNode;
 
@@ -52,47 +53,26 @@ public class ProductsManager<T > implements List<T> {
         return true;
     }
 
-    @Override
-    public boolean remove(Object nameProduct) {
-        if (!(nameProduct instanceof String)) {
-            return false;
-        }
-        String d = (String) nameProduct;
-        return advanceNodes(d);
 
+    public Node<T> findNode(Object object) {
+        Node<T> current = firstNode;
+        return current;
     }
 
-    public boolean advanceNodes(String d) {
+    public boolean remove(Object nameProduct) {
+        if (isEmpty()) return false;
         Node<T> before = null;
         Node<T> current = firstNode;
-        boolean deleted = false;
 
         while (current != null) {
-            if (compareDescription(current.getValue(), d)) {
-                current = removeByName(before, current);
-                deleted = true;
-            } else {
-                before = current;
-                current = current.nextNode;
+            if (current.getValue().equals(nameProduct)) {
+                //eliminar
+                return true;
             }
+            before = current;
+            current = current.nextNode;
         }
-        return deleted;
-    }
-
-    public boolean compareDescription(T product, String delete) {
-        return product.getDescription().toLowerCase().
-                contains(delete.toLowerCase());
-    }
-
-    public Node<T> removeByName(Node<T> before, Node<T> current) {
-        if (before == null) {
-            firstNode = current.nextNode;
-            return firstNode;
-
-        } else {
-            before.nextNode = current.nextNode;
-            return before.nextNode;
-        }
+        return false;
 
     }
 
@@ -113,15 +93,18 @@ public class ProductsManager<T > implements List<T> {
     public List<T> organizeListProducts() {
 
         List<T> listProducts = showListProducts();
-        listProducts.sort(new Comparator<T>() {
+    /*    listProducts.sort(new Comparator<T>() {
             @Override
             public int compare(T o1, T o2) {
                 return o1.getDescription().compareToIgnoreCase(o2.getDescription());
             }
         });
+        */
+
         return listProducts;
     }
 
+    //collection.sort(list a) para ordenarla lista, verificar cuanto pesa en memoria y cuanto s demora en tiempo un metodo
     //itereitor
     @Override
     public int size() {
