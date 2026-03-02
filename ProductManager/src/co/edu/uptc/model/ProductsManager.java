@@ -54,25 +54,30 @@ public class ProductsManager<T> implements List<T> {
     }
 
 
-    public Node<T> findNode(Object object) {
-        Node<T> current = firstNode;
-        return current;
-    }
-
-    public boolean remove(Object nameProduct) {
-        if (isEmpty()) return false;
+    public boolean removeNode(Object object) {
         Node<T> before = null;
         Node<T> current = firstNode;
 
         while (current != null) {
-            if (current.getValue().equals(nameProduct)) {
-                //eliminar
+            if (current.getValue().equals(object)) {
+                unlink(before, current);
                 return true;
             }
             before = current;
             current = current.nextNode;
         }
         return false;
+    }
+
+    private void unlink(Node<T> before, Node<T> current) {
+        if (before == null) firstNode = current.nextNode;
+        else before.nextNode = current.nextNode;
+    }
+
+    public boolean remove(Object nameProduct) {
+        if (isEmpty()) return false;
+
+        return removeNode(nameProduct);
 
     }
 
@@ -104,11 +109,37 @@ public class ProductsManager<T> implements List<T> {
         return listProducts;
     }
 
-    //collection.sort(list a) para ordenarla lista, verificar cuanto pesa en memoria y cuanto s demora en tiempo un metodo
-    //itereitor
+    @Override
+    public Iterator<T> iterator() {
+        return new ProductsIterator();
+    }
+
+    private class ProductsIterator implements Iterator<T> {
+        private Node<T> current = firstNode;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            T value = current.getValue();
+            current = current.nextNode;
+            return null;
+        }
+    }
+
+
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int c = 0;
+        Node<T> current = firstNode;
+        while (current != null) {
+            c++;
+            current = current.nextNode;
+        }
+        return c;
     }
 
     @Override
@@ -116,18 +147,36 @@ public class ProductsManager<T> implements List<T> {
         return firstNode == null;
     }
 
+    @Override
+    public T get(int index) {
+        if (index >= 0) {
+            Node<T> current = firstNode;
+            int count = 0;
+            while (current != null) {
+                if (count == index) return current.getValue();
+                else {
+                    current = current.nextNode;
+                    count++;
+                }
+            }
 
-    //verificar
+        }
+        throw new IndexOutOfBoundsException();
+
+    }
+
+    @Override
+    public T set(int index, T element) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+//verificar
 
     @Override
     public boolean contains(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public <T> T[] toArray(T[] a) {
@@ -139,15 +188,6 @@ public class ProductsManager<T> implements List<T> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public T get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public T set(int index, T element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public T remove(int index) {

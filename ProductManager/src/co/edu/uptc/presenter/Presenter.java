@@ -80,4 +80,14 @@ public class Presenter implements PresenterInterface {
     }
     //  for(Product p : products){
     //view.showMessage(p); o showList() según esté en el View
+
+
+
+/*for (Product p : manager) {
+    if (p.getDescription().toLowerCase().contains(text)) {
+        manager.remove(p);
+        break;
+    }
+}*/
+
 }
