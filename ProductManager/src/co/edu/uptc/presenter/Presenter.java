@@ -21,19 +21,23 @@ public class Presenter implements PresenterInterface {
 
     private ViewInterface view;
     private ModelInterface<Product> model;
+    private ProductsManager manager;
 
-    public void Presenter(ViewInterface view, ModelInterface<Product> model) {
+    public Presenter(ViewInterface view, ModelInterface<Product> model) {
         this.view = view;
         this.model = model;
+        manager = new ProductsManager();
     }
 
     @Override
     public void setView(ViewInterface view) {
+
         this.view = view;
     }
 
     @Override
     public void setModel(ModelInterface model) {
+
         this.model = model;
     }
 
@@ -59,35 +63,27 @@ public class Presenter implements PresenterInterface {
     }
 
     private void addProduct() {
-        //String description = view.readInfo();
-        //double price = view.readDouble();
-        //String unit = view.readInfo();
-        //Product newProduct = new Product(descripcion, price, unit);
-        //boolean added = manager.add(newProduct);
-//        if (added) {
-//            view.showMessage("Producto agregado correctamente");
-//        } else {
-//            view.showMessage("Error al agregar producto");
-//        }
+        String description = view.readString();
+        double price = view.readDouble();
+        String unit = view.readString();
+        Product newProduct = new Product(description, price, unit);
+        boolean added = manager.add(newProduct);
+        if (added) {
+            view.showMessage("Producto agregado correctamente");
+        } else {
+            view.showError("Error al agregar producto");
+        }
     }
 
     private void showListProducts() {
-        // List<Product> products = manager.showListProducts();
+        List<Product> products = manager.showListProducts();
 
-        // if (products.isEmpty()) {
-        //view.showMessage("No hay productos registrados");
-        return;
+        if (products.isEmpty()) {
+            view.showError("No hay productos registrados");
+            return;
+        }
+        for (Product p : products) {
+            view.showMessage(p.toString());
+        }
     }
-    //  for(Product p : products){
-    //view.showMessage(p); o showList() según esté en el View
-
-
-
-/*for (Product p : manager) {
-    if (p.getDescription().toLowerCase().contains(text)) {
-        manager.remove(p);
-        break;
-    }
-}*/
-
 }

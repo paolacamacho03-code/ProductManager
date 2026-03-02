@@ -29,40 +29,54 @@ public class View implements ViewInterface {
         this.presenter = presenter;
     }
 
-    @Override
-    public void showResult(byte result) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String readString(){
+        return input.nextLine();
     }
 
     @Override
     public void showError(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println(message);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 
     @Override
     public void start() {
         MenuConsole menu = new MenuConsole();
         String title = "MENÚ PRINCIPAL";
-        List<String> opts = List.of("1. Saludaaaaaaaaaaaaaaaaaaaaaaar ahora", "2. Información Técnica", "3. Salir");
+        List<String> opts = List.of("1. Adicionar producto.", "2. Ver lista de productos.", "3. Ver lista de productos ordenada.", "4. ELiminar producto.", "5. Salir");
 
-        for(int opt = 0; opt != 3; opt = menu.adminMenu(opts, title)) {
+        for(int opt = 0; opt != 5; opt = menu.adminMenu(opts, title)) {
         }
 
        }
 
     @Override
     public int readInt() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return Integer.parseInt(input.nextLine());
+    }
+
+    public Double readDouble(){
+        return Double.parseDouble(input.nextDouble());
     }
 
     @Override
     public void showMenu() {
         MenuConsole menu = new MenuConsole();
-        String title = "MENÚ PRINCIPAL";
-        List<String> opts = List.of("1. Saludar ahora", "2. Información Técnica", "3. Salir");
 
-        for (int opt = 0; opt != 3; opt = menu.adminMenu(opts, title)) {
+        String title = "MENÚ PRINCIPAL";
+        List<String> opts = List.of(
+                "1. Adicionar producto.",
+                "2. Ver lista de productos.",
+                "3. Ver lista de productos ordenada.",
+                "4. Eliminar producto.",
+                "5. Salir"
+        );
+
+        for (int opt = 0; opt != 5; opt = menu.adminMenu(opts, title)) {
         }
     }
-
 }
