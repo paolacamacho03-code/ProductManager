@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="MenuConsoleLibrary" level="project" />
+    <orderEntry type="library" name="MenuConsoleLibrary" level="project" />
   </component>
 </module>
