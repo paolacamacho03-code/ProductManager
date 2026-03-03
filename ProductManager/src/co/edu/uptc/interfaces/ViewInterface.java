@@ -15,8 +15,6 @@ public interface ViewInterface {
 
     void setPresenter(PresenterInterface presenter);
 
-    void showResult(byte result);
-
     void showError(String message);
 
     void start();
@@ -24,4 +22,11 @@ public interface ViewInterface {
     public int readInt();
 
     public void showMenu();
+
+    public double readDouble();
+
+    public String readString();
+
+    public void showMessage(String message);
+
 }
