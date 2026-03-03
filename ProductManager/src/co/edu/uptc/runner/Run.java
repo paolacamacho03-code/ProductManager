@@ -24,7 +24,7 @@ public class Run {
     
     private void makeMVP(){
         presenter = new Presenter();
-        //model = new ProductsManager();
+        model = new ProductsManager();
         view = new View();
         
         presenter.setModel(model);
@@ -34,7 +34,8 @@ public class Run {
     
     public void start(){
         makeMVP();
-        view.start();
+        //view.start();
+        presenter.init();
     }
     
     public static void main(String[] args) {

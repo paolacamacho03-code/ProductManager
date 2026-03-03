@@ -4,6 +4,7 @@
  */
 package co.edu.uptc.model;
 
+import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.pojo.Node;
 import co.edu.uptc.pojo.Product;
 
@@ -15,7 +16,7 @@ import java.util.*;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public class ProductsManager<T> implements List<T> {
+public class ProductsManager<T> implements List<T>, ModelInterface <T> {
 
     private Node<T> firstNode = null;
 

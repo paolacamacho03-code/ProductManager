@@ -56,11 +56,16 @@ public class View implements ViewInterface {
 
     @Override
     public int readInt() {
-        return Integer.parseInt(input.nextLine());
+        while (!input.hasNextInt()) {
+            System.out.println("Debe ingresar un número:");
+            input.next(); // descarta lo inválido
+        }
+        int number = input.nextInt();
+        input.nextLine(); // limpiar buffer
+        return number;
     }
-
-    public Double readDouble(){
-        return Double.parseDouble(input.nextDouble());
+    public double readDouble(){
+        return Double.parseDouble(String.valueOf(input.nextDouble()));
     }
 
     @Override
@@ -75,8 +80,5 @@ public class View implements ViewInterface {
                 "4. Eliminar producto.",
                 "5. Salir"
         );
-
-        for (int opt = 0; opt != 5; opt = menu.adminMenu(opts, title)) {
-        }
     }
 }

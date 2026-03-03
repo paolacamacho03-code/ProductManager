@@ -21,12 +21,9 @@ public class Presenter implements PresenterInterface {
 
     private ViewInterface view;
     private ModelInterface<Product> model;
-    private ProductsManager manager;
 
-    public Presenter(ViewInterface view, ModelInterface<Product> model) {
-        this.view = view;
-        this.model = model;
-        manager = new ProductsManager();
+    public Presenter(){
+
     }
 
     @Override
@@ -55,19 +52,22 @@ public class Presenter implements PresenterInterface {
                 case 2 -> showListProducts();
                 //   case 3 -> showOrderedList();
                 // case 4 -> deleteProduct();
-                //case 5 -> view.showMessage("Cerrando programa");
-                //default -> view.showMessage("Opcion invalida");
+                case 5 -> view.showMessage("Cerrando programa");
+                default -> view.showError("Opcion invalida");
 
             }
         } while (option != 5);
     }
 
     private void addProduct() {
+        view.showMessage("Ingrese la descripción del producto que desea agregar :");
         String description = view.readString();
+        view.showMessage("Ingrese el precio del producto: ");
         double price = view.readDouble();
+        view.showMessage("Ingrese la unidad de medida del producto: ");
         String unit = view.readString();
         Product newProduct = new Product(description, price, unit);
-        boolean added = manager.add(newProduct);
+        boolean added = model.add(newProduct);
         if (added) {
             view.showMessage("Producto agregado correctamente");
         } else {
@@ -76,7 +76,7 @@ public class Presenter implements PresenterInterface {
     }
 
     private void showListProducts() {
-        List<Product> products = manager.showListProducts();
+        List<Product> products = model.showListProducts();
 
         if (products.isEmpty()) {
             view.showError("No hay productos registrados");
