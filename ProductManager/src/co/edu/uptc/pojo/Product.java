@@ -48,8 +48,8 @@ public class Product {
     }
 
     public boolean equals(Object object) {
-        if (object == this) return true;
-        if (!(object instanceof Product) || object == null) return false;
+        if (this==object) return true;
+        if (object==null || !(object instanceof Product)) return false;
         Product o = (Product) object;
         return this.description.equalsIgnoreCase(o.description);
 

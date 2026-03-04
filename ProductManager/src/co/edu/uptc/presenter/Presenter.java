@@ -33,7 +33,7 @@ public class Presenter implements PresenterInterface {
     }
 
     @Override
-    public void setModel(ModelInterface model) {
+    public void setModel(ModelInterface<Product> model) {
 
         this.model = model;
     }
@@ -48,8 +48,8 @@ public class Presenter implements PresenterInterface {
 
             option = view.showMenu();
             switch (option) {
-              //  case 1 -> addProduct();
-                //case 2 -> showListProducts();
+              case 1 -> addProduct();
+                case 2 -> showListProducts();
                 case 3 -> showOrderedList();
                 case 4 -> deleteProduct();
                 case 5 -> view.showMessage("Cerrando programa");
@@ -58,7 +58,6 @@ public class Presenter implements PresenterInterface {
             }
         } while (option != 5);
     }
-/*
     private void addProduct() {
         view.showMessage("Ingrese la descripción del producto que desea agregar :");
         String description = view.readString();
@@ -76,28 +75,29 @@ public class Presenter implements PresenterInterface {
     }
 
     private void showListProducts() {
-        List<Product> products = model.showListProducts();
-
-        if (products.isEmpty()) {
+        if (model.isEmpty()) {
             view.showError("No hay productos registrados");
             return;
         }
-        for (Product p : products) {
+
+        for (Product p : model) {
             view.showMessage(p.toString());
         }
     }
-*/
+
     public void showOrderedList() {
         if (model.isEmpty()) {
             view.showError("No hay productos registrados");
             return;
-        } else {
-            List<Product> ordered=model.showLi
-            model.sort((p1, p2) -> p1.getDescription().compareToIgnoreCase(p2.getDescription()));
-            for (Product product : model) {
+        } List<Product> ordered=new ArrayList<>();
+        for (Product p: model){
+            ordered.add(p);
+        }
+            ordered.sort((p1, p2) -> p1.getDescription().compareToIgnoreCase(p2.getDescription()));
+            for (Product product : ordered) {
                 view.showMessage(product.toString());
             }
-        }
+
 
     }
 

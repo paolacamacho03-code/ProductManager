@@ -18,5 +18,6 @@ import java.util.List;
 public interface ModelInterface<T> extends List<T>{
 
 
+public List<T> showListProducts();
 
 }
