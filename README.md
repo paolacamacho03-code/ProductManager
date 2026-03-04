@@ -1,4 +1,4 @@
 # ProductManager
-Autoras: 
+Participantes: 
 Paola Andrea Camacho González
 Hellen Valeria Melo Cubides
