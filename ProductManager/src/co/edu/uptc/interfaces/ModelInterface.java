@@ -13,11 +13,9 @@ import java.util.List;
  *
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
- * poner titulo de participantes en e readme
  */
 public interface ModelInterface<T> extends List<T>{
 
 
-public List<T> showListProducts();
 
 }
