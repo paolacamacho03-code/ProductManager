@@ -80,5 +80,6 @@ public class View implements ViewInterface {
                 "4. Eliminar producto.",
                 "5. Salir"
         );
+        menu.showMenu(opts, title);
     }
 }

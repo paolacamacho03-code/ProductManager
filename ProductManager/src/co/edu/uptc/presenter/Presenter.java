@@ -50,8 +50,8 @@ public class Presenter implements PresenterInterface {
             switch (option) {
                 case 1 -> addProduct();
                 case 2 -> showListProducts();
-                //   case 3 -> showOrderedList();
-                // case 4 -> deleteProduct();
+                case 3 -> showOrderedList();
+                case 4 -> deleteProduct();
                 case 5 -> view.showMessage("Cerrando programa");
                 default -> view.showError("Opcion invalida");
 
@@ -76,14 +76,50 @@ public class Presenter implements PresenterInterface {
     }
 
     private void showListProducts() {
-        List<Product> products = model.showListProducts();
-
-        if (products.isEmpty()) {
+        if (model.isEmpty()) {
             view.showError("No hay productos registrados");
             return;
         }
-        for (Product p : products) {
+
+        for (Product p : model) {
             view.showMessage(p.toString());
+        }
+    }
+    private void showOrderedList() {
+
+        if (model.isEmpty()) {
+            view.showError("No hay productos registrados");
+            return;
+        }
+
+        model.sort((p1, p2) ->
+                p1.getDescription().compareToIgnoreCase(p2.getDescription())
+        );
+
+        view.showMessage("Lista ordenada:");
+
+        for (Product p : model) {
+            view.showMessage(p.toString());
+        }
+    }
+    private void deleteProduct() {
+
+        if (model.isEmpty()) {
+            view.showError("No hay productos registrados");
+            return;
+        }
+
+        view.showMessage("Ingrese la descripción del producto que desea eliminar:");
+        String description = view.readString();
+
+        Product temp = new Product(description, 0, "");
+
+        boolean removed = model.remove(temp);
+
+        if (removed) {
+            view.showMessage("Producto eliminado correctamente");
+        } else {
+            view.showError("No se encontró el producto");
         }
     }
 }

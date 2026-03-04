@@ -206,7 +206,16 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Object[] array = new Object[size()];
+        Node<T> current = firstNode;
+        int index = 0;
+
+        while (current != null) {
+            array[index++] = current.getValue();
+            current = current.nextNode;
+        }
+
+        return array;
     }
 
     @Override
@@ -246,11 +255,60 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new ProductsListIterator();
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    private class ProductsListIterator implements ListIterator<T> {
+
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size();
+        }
+
+        @Override
+        public T next() {
+            return get(currentIndex++);
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return currentIndex > 0;
+        }
+
+        @Override
+        public T previous() {
+            return get(--currentIndex);
+        }
+
+        @Override
+        public int nextIndex() {
+            return currentIndex;
+        }
+
+        @Override
+        public int previousIndex() {
+            return currentIndex - 1;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void set(T e) {
+            ProductsManager.this.set(currentIndex - 1, e);
+        }
+
+        @Override
+        public void add(T e) {
+            throw new UnsupportedOperationException();
+        }
     }
 }
