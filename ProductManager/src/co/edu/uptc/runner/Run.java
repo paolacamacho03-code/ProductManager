@@ -31,11 +31,6 @@ public class Run {
         presenter.setModel(model);
         presenter.setView(view);
         view.setPresenter(presenter);
-
-        // DATOS DE PRUEBA
-        model.add(new Product("Pan", 2000, "Unidad"));
-        model.add(new Product("Leche", 3500, "Litro"));
-        model.add(new Product("Pan Integral", 2500, "Unidad"));
     }
 
     public void start(){
