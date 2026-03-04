@@ -13,15 +13,10 @@ import java.util.List;
  *
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
+ * poner titulo de participantes en e readme
  */
-public interface ModelInterface<T> {
-    boolean add(T product);
+public interface ModelInterface<T> extends List<T>{
 
-    boolean remove(Object nameProduct);
-
-    List<T> showListProducts();
-
-    List<T> organizeListProducts();
 
 
 }

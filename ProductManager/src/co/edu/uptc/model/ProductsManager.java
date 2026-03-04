@@ -16,7 +16,7 @@ import java.util.*;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public class ProductsManager<T> implements List<T>, ModelInterface <T> {
+public class ProductsManager<T> implements ModelInterface<T> {
 
     private Node<T> firstNode = null;
 
@@ -96,20 +96,6 @@ public class ProductsManager<T> implements List<T>, ModelInterface <T> {
         return listProducts;
     }
 
-    public List<T> organizeListProducts() {
-
-        List<T> listProducts = showListProducts();
-    /*    listProducts.sort(new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                return o1.getDescription().compareToIgnoreCase(o2.getDescription());
-            }
-        });
-        */
-
-        return listProducts;
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new ProductsIterator();
@@ -127,7 +113,7 @@ public class ProductsManager<T> implements List<T>, ModelInterface <T> {
         public T next() {
             T value = current.getValue();
             current = current.nextNode;
-            return null;
+            return value;
         }
     }
 
@@ -168,10 +154,23 @@ public class ProductsManager<T> implements List<T>, ModelInterface <T> {
 
     @Override
     public T set(int index, T element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        if (index >= 0) {
+            Node<T> current = firstNode;
+            int count = 0;
 
-//verificar
+            while (current != null) {
+                if (count == index) {
+                    T oldValue = current.getValue();
+                    current.setValue(element);
+                   return oldValue;
+                }
+                count++;
+                current=current.nextNode;
+            }
+
+        }
+        throw new IndexOutOfBoundsException();
+    }
 
     @Override
     public boolean contains(Object o) {

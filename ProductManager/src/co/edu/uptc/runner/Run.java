@@ -17,27 +17,27 @@ import co.edu.uptc.view.View;
  * @author Hellen Valeria Melo
  */
 public class Run {
-    
+
     PresenterInterface presenter;
     ModelInterface model;
     ViewInterface view;
-    
+
     private void makeMVP(){
         presenter = new Presenter();
         model = new ProductsManager();
         view = new View();
-        
+
         presenter.setModel(model);
         presenter.setView(view);
         view.setPresenter(presenter);
     }
-    
+
     public void start(){
         makeMVP();
         //view.start();
         presenter.init();
     }
-    
+
     public static void main(String[] args) {
         Run run = new Run();
         run.start();

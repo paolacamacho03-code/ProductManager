@@ -52,7 +52,7 @@ public class View implements ViewInterface {
         for(int opt = 0; opt != 5; opt = menu.adminMenu(opts, title)) {
         }
 
-       }
+    }
 
     @Override
     public int readInt() {
