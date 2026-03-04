@@ -16,7 +16,7 @@ public interface PresenterInterface {
 
     public void setView(ViewInterface view);
 
-    void setModel(ModelInterface<Product> model);
+    public void setModel(ModelInterface<Product> model);
 
     public void init();
 

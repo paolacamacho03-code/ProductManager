@@ -13,19 +13,19 @@ package co.edu.uptc.interfaces;
 
 public interface ViewInterface {
 
-    void setPresenter(PresenterInterface presenter);
+    public void setPresenter(PresenterInterface presenter);
 
-    void showError(String message);
+    public void showError(String message);
 
-    void showMessage(String message);
+    public void showMessage(String message);
 
-    void start();
+    public void start();
 
-    int showMenu();
+    public int showMenu();
 
-    double readDouble();
+    public double readDouble();
 
-    String readString();
+   public String readString();
 
 
 }
