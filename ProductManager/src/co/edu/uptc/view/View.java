@@ -29,8 +29,34 @@ public class View implements ViewInterface {
         this.presenter = presenter;
     }
 
-    public String readString(){
+    @Override
+    public void start() {
+        presenter.init();
+    }
+
+    @Override
+    public int showMenu() {
+        MenuConsole menu = new MenuConsole();
+
+        String title = "MENÚ PRINCIPAL";
+        List<String> opts = List.of(
+                "1. Adicionar producto.",
+                "2. Ver lista de productos.",
+                "3. Ver lista de productos ordenada.",
+                "4. Eliminar producto.",
+                "5. Salir"
+        );
+        return menu.adminMenu(opts, title);
+    }
+
+    public String readString() {
         return input.nextLine();
+    }
+
+    public double readDouble() {
+        double num = input.nextDouble();
+        input.nextLine();
+        return num;
     }
 
     @Override
@@ -43,42 +69,5 @@ public class View implements ViewInterface {
         System.out.println(message);
     }
 
-    @Override
-    public void start() {
-        MenuConsole menu = new MenuConsole();
-        String title = "MENÚ PRINCIPAL";
-        List<String> opts = List.of("1. Adicionar producto.", "2. Ver lista de productos.", "3. Ver lista de productos ordenada.", "4. ELiminar producto.", "5. Salir");
 
-        for(int opt = 0; opt != 5; opt = menu.adminMenu(opts, title)) {
-        }
-
-    }
-
-    @Override
-    public int readInt() {
-        while (!input.hasNextInt()) {
-            System.out.println("Debe ingresar un número:");
-            input.next(); // descarta lo inválido
-        }
-        int number = input.nextInt();
-        input.nextLine(); // limpiar buffer
-        return number;
-    }
-    public double readDouble(){
-        return Double.parseDouble(String.valueOf(input.nextDouble()));
-    }
-
-    @Override
-    public void showMenu() {
-        MenuConsole menu = new MenuConsole();
-
-        String title = "MENÚ PRINCIPAL";
-        List<String> opts = List.of(
-                "1. Adicionar producto.",
-                "2. Ver lista de productos.",
-                "3. Ver lista de productos ordenada.",
-                "4. Eliminar producto.",
-                "5. Salir"
-        );
-    }
 }

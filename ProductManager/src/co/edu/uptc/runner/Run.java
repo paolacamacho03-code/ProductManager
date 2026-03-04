@@ -8,6 +8,7 @@ import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.model.ProductsManager;
+import co.edu.uptc.pojo.Product;
 import co.edu.uptc.presenter.Presenter;
 import co.edu.uptc.view.View;
 
@@ -19,23 +20,27 @@ import co.edu.uptc.view.View;
 public class Run {
 
     PresenterInterface presenter;
-    ModelInterface model;
+    ModelInterface<Product> model;
     ViewInterface view;
 
     private void makeMVP(){
         presenter = new Presenter();
-        model = new ProductsManager();
+        model = new ProductsManager<>();
         view = new View();
 
         presenter.setModel(model);
         presenter.setView(view);
         view.setPresenter(presenter);
+
+        // DATOS DE PRUEBA
+        model.add(new Product("Pan", 2000, "Unidad"));
+        model.add(new Product("Leche", 3500, "Litro"));
+        model.add(new Product("Pan Integral", 2500, "Unidad"));
     }
 
     public void start(){
         makeMVP();
-        //view.start();
-        presenter.init();
+       view.start();
     }
 
     public static void main(String[] args) {

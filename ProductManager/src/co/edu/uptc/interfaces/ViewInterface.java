@@ -17,16 +17,15 @@ public interface ViewInterface {
 
     void showError(String message);
 
+    void showMessage(String message);
+
     void start();
 
-    public int readInt();
+    int showMenu();
 
-    public void showMenu();
+    double readDouble();
 
-    public double readDouble();
+    String readString();
 
-    public String readString();
-
-    public void showMessage(String message);
 
 }

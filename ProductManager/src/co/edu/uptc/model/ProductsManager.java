@@ -162,10 +162,10 @@ public class ProductsManager<T> implements ModelInterface<T> {
                 if (count == index) {
                     T oldValue = current.getValue();
                     current.setValue(element);
-                   return oldValue;
+                    return oldValue;
                 }
                 count++;
-                current=current.nextNode;
+                current = current.nextNode;
             }
 
         }
@@ -174,18 +174,18 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node<T> current = firstNode;
+        while (current != null) {
+            if (current.getValue().equals(o)) return true;
+            current = current.nextNode;
+        }
+        return false;
     }
 
-
-    @Override
-    public <T> T[] toArray(T[] a) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        firstNode = null;
     }
 
 
@@ -206,7 +206,31 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Object[] array = new Object[size()];
+        Node<T> current = firstNode;
+
+        int i = 0;
+        while (current != null) {
+            array[i++] = current.getValue();
+            current = current.nextNode;
+        }
+        return array;
+    }
+
+    @Override
+    public <E> E[] toArray(E[] a) {
+        int size = size();
+        if (a.length < size) a = (E[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
+        Node<T> current = firstNode;
+        int i = 0;
+        while (current != null) {
+            a[i++] = (E) current.getValue();
+            current = current.nextNode;
+
+        }
+        if (a.length > size) a[size] = null;
+
+        return a;
     }
 
     @Override
@@ -246,11 +270,11 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return showListProducts().listIterator();
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return showListProducts().listIterator(index);
     }
 }
