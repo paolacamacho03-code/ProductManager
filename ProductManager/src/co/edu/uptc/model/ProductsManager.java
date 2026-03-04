@@ -26,15 +26,14 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     }
 
-    //verificar que no se rompa si recibe firstNode==null
     private Node<T> returnLastNode() {
 
 
         Node<T> last = firstNode;
 
-        while (last.nextNode != null) {
+        while (last.getNextNode()!= null) {
 
-            last = last.nextNode;
+            last = last.getNextNode();
 
         }
 
@@ -49,8 +48,7 @@ public class ProductsManager<T> implements ModelInterface<T> {
             firstNode = aux;
         } else {
             Node<T> last = returnLastNode();
-            last.nextNode = aux;
-        }
+            last.setNextNode(aux);        }
         return true;
     }
 
@@ -65,14 +63,15 @@ public class ProductsManager<T> implements ModelInterface<T> {
                 return true;
             }
             before = current;
-            current = current.nextNode;
-        }
+            current = current.getNextNode();        }
         return false;
     }
 
     private void unlink(Node<T> before, Node<T> current) {
-        if (before == null) firstNode = current.nextNode;
-        else before.nextNode = current.nextNode;
+        if (before == null)
+            firstNode = current.getNextNode();
+        else
+            before.setNextNode(current.getNextNode());
     }
 
     public boolean remove(Object nameProduct) {
@@ -90,7 +89,7 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
         while (current != null) {
             listProducts.add(current.getValue());
-            current = current.nextNode;
+            current = current.getNextNode();
         }
 
         return listProducts;
@@ -112,7 +111,7 @@ public class ProductsManager<T> implements ModelInterface<T> {
         @Override
         public T next() {
             T value = current.getValue();
-            current = current.nextNode;
+            current = current.getNextNode();
             return value;
         }
     }
@@ -124,7 +123,7 @@ public class ProductsManager<T> implements ModelInterface<T> {
         Node<T> current = firstNode;
         while (current != null) {
             c++;
-            current = current.nextNode;
+            current = current.getNextNode();
         }
         return c;
     }
@@ -136,58 +135,97 @@ public class ProductsManager<T> implements ModelInterface<T> {
 
     @Override
     public T get(int index) {
-        if (index >= 0) {
-            Node<T> current = firstNode;
-            int count = 0;
-            while (current != null) {
-                if (count == index) return current.getValue();
-                else {
-                    current = current.nextNode;
-                    count++;
-                }
-            }
+        validateIndex(index);
+        return findNode(index).getValue();
+    }
 
+    private Node<T> findNode(int index) {
+        Node<T> current = firstNode;
+        int count = 0;
+        while (count < index) {
+            current = current.getNextNode();
+            count++;
         }
-        throw new IndexOutOfBoundsException();
+        return current;
+    }
 
+    private void validateIndex(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
     public T set(int index, T element) {
-        if (index >= 0) {
-            Node<T> current = firstNode;
-            int count = 0;
-
-            while (current != null) {
-                if (count == index) {
-                    T oldValue = current.getValue();
-                    current.setValue(element);
-                   return oldValue;
-                }
-                count++;
-                current=current.nextNode;
-            }
-
-        }
-        throw new IndexOutOfBoundsException();
+        validateIndex(index);
+        Node<T> node = findNode(index);
+        T oldValue = node.getValue();
+        node.setValue(element);
+        return oldValue;
     }
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node<T> current = firstNode;
+        while (current != null) {
+            if (current.getValue().equals(o)) return true;
+            current = current.getNextNode();
+        }
+        return false;
     }
 
-
-    @Override
-    public <T> T[] toArray(T[] a) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        firstNode = null;
     }
 
+
+    @Override
+    public Object[] toArray() {
+        Object[] array = new Object[size()];
+        Node<T> current = firstNode;
+
+        int i = 0;
+        while (current != null) {
+            array[i++] = current.getValue();
+            current = current.getNextNode();
+        }
+        return array;
+    }
+
+    @Override
+    public <E> E[] toArray(E[] a) {
+        int size = size();
+        if (a.length < size) {
+            a = (E[]) java.lang.reflect.Array
+                    .newInstance(a.getClass().getComponentType(), size);
+        }
+        fillArray(a);
+        return a;
+    }
+
+    private <E> void fillArray(E[] array) {
+        Node<T> current = firstNode;
+        int i = 0;
+        while (current != null) {
+            array[i++] = (E) current.getValue();
+            current = current.getNextNode();
+        }
+        if (array.length > size()) {
+            array[size()] = null;
+        }
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return showListProducts().listIterator();
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        return showListProducts().listIterator(index);
+    }
 
     @Override
     public T remove(int index) {
@@ -202,20 +240,6 @@ public class ProductsManager<T> implements ModelInterface<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Object[] toArray() {
-        Object[] array = new Object[size()];
-        Node<T> current = firstNode;
-        int index = 0;
-
-        while (current != null) {
-            array[index++] = current.getValue();
-            current = current.nextNode;
-        }
-
-        return array;
     }
 
     @Override
@@ -253,62 +277,4 @@ public class ProductsManager<T> implements ModelInterface<T> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public ListIterator<T> listIterator() {
-        return new ProductsListIterator();
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    private class ProductsListIterator implements ListIterator<T> {
-
-        private int currentIndex = 0;
-
-        @Override
-        public boolean hasNext() {
-            return currentIndex < size();
-        }
-
-        @Override
-        public T next() {
-            return get(currentIndex++);
-        }
-
-        @Override
-        public boolean hasPrevious() {
-            return currentIndex > 0;
-        }
-
-        @Override
-        public T previous() {
-            return get(--currentIndex);
-        }
-
-        @Override
-        public int nextIndex() {
-            return currentIndex;
-        }
-
-        @Override
-        public int previousIndex() {
-            return currentIndex - 1;
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void set(T e) {
-            ProductsManager.this.set(currentIndex - 1, e);
-        }
-
-        @Override
-        public void add(T e) {
-            throw new UnsupportedOperationException();
-        }
-    }
 }

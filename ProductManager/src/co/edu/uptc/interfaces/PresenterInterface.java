@@ -5,6 +5,8 @@
 package co.edu.uptc.interfaces;
 
 
+import co.edu.uptc.pojo.Product;
+
 /**
  *
  * @author Paola Andrea Camacho
@@ -14,7 +16,7 @@ public interface PresenterInterface {
 
     public void setView(ViewInterface view);
 
-    public void setModel(ModelInterface model);
+    void setModel(ModelInterface<Product> model);
 
     public void init();
 

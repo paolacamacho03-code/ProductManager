@@ -9,10 +9,18 @@ package co.edu.uptc.pojo;
  * @author Paola Andrea Camacho
  * @author Hellen Valeria Melo
  */
-public class Node <T> {
+public class Node<T> {
 
-    public Node <T> nextNode;
+    private Node<T> nextNode;
     private T value;
+
+    public Node<T> getNextNode() {
+        return nextNode;
+    }
+
+    public void setNextNode(Node<T> nextNode) {
+        this.nextNode = nextNode;
+    }
 
     public Node(T value) {
         this.value = value;

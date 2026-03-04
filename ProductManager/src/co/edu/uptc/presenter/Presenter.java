@@ -8,8 +8,8 @@ import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.pojo.Product;
-import co.edu.uptc.model.ProductsManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ public class Presenter implements PresenterInterface {
     private ViewInterface view;
     private ModelInterface<Product> model;
 
-    public Presenter(){
+    public Presenter() {
 
     }
 
@@ -33,7 +33,7 @@ public class Presenter implements PresenterInterface {
     }
 
     @Override
-    public void setModel(ModelInterface model) {
+    public void setModel(ModelInterface<Product> model) {
 
         this.model = model;
     }
@@ -45,10 +45,10 @@ public class Presenter implements PresenterInterface {
     private void startMenu() {
         int option;
         do {
-            view.showMenu();
-            option = view.readInt();
+
+            option = view.showMenu();
             switch (option) {
-                case 1 -> addProduct();
+              case 1 -> addProduct();
                 case 2 -> showListProducts();
                 case 3 -> showOrderedList();
                 case 4 -> deleteProduct();
@@ -58,7 +58,6 @@ public class Presenter implements PresenterInterface {
             }
         } while (option != 5);
     }
-
     private void addProduct() {
         view.showMessage("Ingrese la descripción del producto que desea agregar :");
         String description = view.readString();
@@ -85,41 +84,37 @@ public class Presenter implements PresenterInterface {
             view.showMessage(p.toString());
         }
     }
-    private void showOrderedList() {
 
+    public void showOrderedList() {
         if (model.isEmpty()) {
             view.showError("No hay productos registrados");
             return;
+        } List<Product> ordered=new ArrayList<>();
+        for (Product p: model){
+            ordered.add(p);
         }
+            ordered.sort((p1, p2) -> p1.getDescription().compareToIgnoreCase(p2.getDescription()));
+            for (Product product : ordered) {
+                view.showMessage(product.toString());
+            }
 
-        model.sort((p1, p2) ->
-                p1.getDescription().compareToIgnoreCase(p2.getDescription())
-        );
 
-        view.showMessage("Lista ordenada:");
-
-        for (Product p : model) {
-            view.showMessage(p.toString());
-        }
     }
-    private void deleteProduct() {
 
+    public void deleteProduct() {
         if (model.isEmpty()) {
             view.showError("No hay productos registrados");
             return;
-        }
-
-        view.showMessage("Ingrese la descripción del producto que desea eliminar:");
-        String description = view.readString();
-
-        Product temp = new Product(description, 0, "");
-
-        boolean removed = model.remove(temp);
-
-        if (removed) {
-            view.showMessage("Producto eliminado correctamente");
         } else {
-            view.showError("No se encontró el producto");
+            view.showMessage("Ingrese el nombre del elemento que desea eliminar");
+            String delete = view.readString().toLowerCase();
+            List<Product> deleteProduct = new ArrayList<>();
+            for (Product p : model) {
+                if (p.getDescription().toLowerCase().contains(delete)) deleteProduct.add(p);
+
+            }
+            for (Product product : deleteProduct) model.remove(product);
+            view.showMessage("Proceso completado con exito");
         }
     }
 }
