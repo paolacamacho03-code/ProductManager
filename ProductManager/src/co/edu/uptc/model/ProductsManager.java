@@ -96,20 +96,6 @@ public class ProductsManager<T> implements ModelInterface<T> {
         return listProducts;
     }
 
-    public List<T> organizeListProducts() {
-
-        List<T> listProducts = showListProducts();
-    /*    listProducts.sort(new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                return o1.getDescription().compareToIgnoreCase(o2.getDescription());
-            }
-        });
-        */
-
-        return listProducts;
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new ProductsIterator();
@@ -186,7 +172,6 @@ public class ProductsManager<T> implements ModelInterface<T> {
         throw new IndexOutOfBoundsException();
     }
 
-    //utilities
     @Override
     public boolean contains(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
